@@ -13,6 +13,9 @@ namespace LoginRegistrationDemo.Controllers
     {
         // GET: MessStaff
         HostelProjectEntities db = new HostelProjectEntities();
+        public List<User> users { get; set; }
+        public List<ApprovedStudent> approvedStudents { get; set; }
+
 
         public ActionResult Index()
         {
@@ -32,18 +35,49 @@ namespace LoginRegistrationDemo.Controllers
 
             return View();
         }
-        public ActionResult approvedrequest(ApprovedStudent stu)
+
+        public ActionResult approvedrequest(ApprovedStudent j)
         {
 
+            db.ApprovedStudents.Add(j);
 
+            db.SaveChanges();
+            //return RedirectToAction("Index", new { id = 0 });
             return View(db.ApprovedStudents.ToList());
         }
         public ActionResult newrequests(User users)
         {
 
             //return View(new User());
+            db.Users.Add(users);
+
             return View(db.Users.ToList());
         }
+        public ActionResult practice(int ID)
+        {
+            var temps = db.Users.Where(t => t.ID == ID).ToList();
+            ApprovedStudent k = new ApprovedStudent();
+            User obj = db.Users.Find(ID);
+            k.Username = obj.Username;
+            k.Email = obj.Email;
+            k.CNIC = obj.CNIC;
+            k.Degree = obj.Degree;
+            k.Department = obj.Department;
+            k.HostelName = obj.HostelName;
+            k.RoomNumber = obj.RoomNumber;
+            k.phoneNumber = obj.PhoneNumber;
+         //   k.IsValid = obj.IsValid(o)
+
+            k.RegistrationNumber = obj.RegistrationNumber;
+           
+            db.ApprovedStudents.Add(k);
+            db.SaveChanges();
+            return RedirectToAction("newrequests", new { id = 0 });
+           // return View(db.ApprovedStudents.ToList());
+
+        }
+
+
         public ActionResult lunch()
         {
 

@@ -446,6 +446,8 @@
     <Content Include="Views\RT\Menu.cshtml" />
     <Content Include="Views\RT\Requests.cshtml" />
     <Content Include="Views\RT\OneDayMenu.cshtml" />
+    <Content Include="Views\MessStaff\practice.cshtml" />
+    <Content Include="Views\Student\practice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
