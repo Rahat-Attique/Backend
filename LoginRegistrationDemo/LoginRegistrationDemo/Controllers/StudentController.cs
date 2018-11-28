@@ -21,9 +21,33 @@ namespace LoginRegistrationDemo.Controllers
 
         }
 
-        public ActionResult AddComplains()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddComplains(AddComplains cc)
         {
-            return View();
+            using (HostelProjectEntities db = new HostelProjectEntities())
+            {
+                AddComplains comp = new AddComplains();
+                comp.Subject = cc.Subject;
+                comp.RoomNo = cc.RoomNo;
+                comp.IssueType = cc.IssueType;
+                comp.Priority = cc.Priority;
+                comp.DueDate = cc.DueDate;
+                comp.AssignComplainTo = cc.AssignComplainTo;
+                comp.DueDate = cc.DueDate;
+                comp.ComplainDetails = cc.ComplainDetails;
+                //db.AddComplains.Add(comp);
+                db.SaveChanges();
+                ViewBag.SuccessMessage = "Successfully Added";
+
+
+
+            }
+            ViewBag.SuccessMessage = "not added";
+            ModelState.Clear();
+            return View("Added", new AddComplains());
+
+
         }
 
         public ActionResult ViewDetails()
@@ -44,5 +68,16 @@ namespace LoginRegistrationDemo.Controllers
 
             return View();
         }
+    }
+
+    public class AddComplains
+    {
+        public object Subject { get; internal set; }
+        public object RoomNo { get; internal set; }
+        public object IssueType { get; internal set; }
+        public object Priority { get; internal set; }
+        public object DueDate { get; internal set; }
+        public object AssignComplainTo { get; internal set; }
+        public object ComplainDetails { get; internal set; }
     }
 }
