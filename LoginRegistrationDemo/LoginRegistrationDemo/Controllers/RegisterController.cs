@@ -1,130 +1,247 @@
-﻿using LoginRegistrationDemo.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
-using System.Text;
 using System.Web;
-using System.Web.Hosting;
 using System.Web.Mvc;
+using LoginRegistrationDemo.Models;
+
+using System.Data.Entity.Validation;
+using System.Web.ClientServices;
+using System.Web.Security;
 
 namespace LoginRegistrationDemo.Controllers
 {
     public class RegisterController : Controller
     {
-        HostelProjectEntities db = new HostelProjectEntities();
+        // GET: Register
         public ActionResult Index()
         {
             return View();
         }
+        public ActionResult StuRegister()
+        {
+            HMSEntities db = new HMSEntities();
+            List<Department> departments = db.Departments.ToList();
+            ViewBag.DepartmentList = new SelectList(departments, "DepartmentID", "Name");
 
-        public JsonResult SaveData(User model)
-        {
-            model.IsValid = false;
-            db.Users.Add(model);
-            db.SaveChanges();
-            //BuildEmailTemplate(model.ID);
-            return Json("Registration Successfull", JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult Confirm(int regId)
-        {
-            ViewBag.regID = regId;
             return View();
         }
-        public JsonResult RegisterConfirm(int regId)
+
+        [HttpPost]
+        public ActionResult StuRegister(Student obj)
         {
-            User Data = db.Users.Where(x => x.ID == regId).FirstOrDefault();
-            Data.IsValid = true;
-            db.SaveChanges();
-            var msg = "Your Email Is Verified!";
-            return Json(msg, JsonRequestBehavior.AllowGet);
-        }
-        //public void BuildEmailTemplate(int regID)
-        //{
-        //    string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/") + "Text" + ".cshtml");
-        //    var regInfo = db.Users.Where(x => x.ID == regID).FirstOrDefault();
-        //    var url = "http://localhost:58464/" + "Register/Confirm?regId=" + regID;
-        //    body = body.Replace("@ViewBag.ConfirmationLink", url);
-        //    body = body.ToString();
-        //    BuildEmailTemplate("Your Account Is Successfully Created", body, regInfo.Email);
-        //}
-
-        //public static void BuildEmailTemplate(string subjectText, string bodyText, string sendTo)
-        //{
-        //    string from, to, bcc, cc, subject, body;
-        //    from = "YourEmail@gmail.com";
-        //    to = sendTo.Trim();
-        //    bcc = "";
-        //    cc = "";
-        //    subject = subjectText;
-        //    StringBuilder sb = new StringBuilder();
-        //    sb.Append(bodyText);
-        //    body = sb.ToString();
-        //    MailMessage mail = new MailMessage();
-        //    mail.From = new MailAddress(from);
-        //    mail.To.Add(new MailAddress(to));
-        //    if (!string.IsNullOrEmpty(bcc))
-        //    {
-        //        mail.Bcc.Add(new MailAddress(bcc));
-        //    }
-        //    if (!string.IsNullOrEmpty(cc))
-        //    {
-        //        mail.CC.Add(new MailAddress(cc));
-        //    }
-        //    mail.Subject = subject;
-        //    mail.Body = body;
-        //    mail.IsBodyHtml = true;
-        //    SendEmail(mail);
-        //}
-
-        //public static void SendEmail(MailMessage mail)
-        //{
-        //    SmtpClient client = new SmtpClient();
-        //    client.Host = "smtp.gmail.com";
-        //    client.Port = 587;
-        //    client.EnableSsl = true;
-        //    client.UseDefaultCredentials = false;
-        //    client.DeliveryMethod = SmtpDeliveryMethod.Network;
-        //    client.Credentials = new System.Net.NetworkCredential("YourEmail@gmail.com", "Password");
-        //    try
-        //    {
-        //        client.Send(mail);
-        //    }
-        //    catch(Exception ex){
-        //        throw ex;
-        //    }
-        //}
-
-        public JsonResult CheckValidUser(User model)
-        {
-            string result = "Fail";
-            var DataItem = db.Users.Where(x => x.Email == model.Email && x.Password == model.Password).SingleOrDefault();
-            if (DataItem != null)
+            try
             {
-                Session["UserID"] = DataItem.ID.ToString();
-                Session["UserName"] = DataItem.Username.ToString();
-                result = "Success";
+                HMSEntities db = new HMSEntities();
+                List<Department> list = db.Departments.ToList();
+                ViewBag.DepartmentList = new SelectList(list, "DepartmentID", "Name");
+                Student k = new Student();
+                Login site = new Login();
+                site.Email = obj.Name;
+                site.Password = obj.password;
+                site.Type = "stu";
+                // using (HMSEntities k =new HMSEntities())
+                if (db.Logins.Any(x => x.Email == obj.Name))
+                {  //{
+                    ViewBag.Message = "EEEE";
+                    //    ViewBag.Message = "UserName or password is wrong";
+                    //   // return View("StuRegister",)
+                    return RedirectToAction("StuRegister");
+                    //    ViewBag.ErrorMessage = "Email not found or matched";
+                    //return View();
+                }
+                else
+                {
+                    db.Logins.Add(site);
+                    db.SaveChanges();
+
+                    k.Name = obj.Name;
+                    k.password = obj.password;
+                    k.DepartmentID = obj.DepartmentID;
+
+
+
+
+                    int latestid = site.LoginID;
+
+                    k.LoginID = site.LoginID;
+
+
+                    k.DepartmentID = obj.DepartmentID;
+                    k.Address = obj.Address;
+                    k.Session = obj.Session;
+                    k.DOB = obj.DOB;
+                    k.PhoneNumber = obj.PhoneNumber;
+                    k.RegistrationNumber = obj.RegistrationNumber;
+
+                    //  k.Login.LoginID = obj.LoginID;
+                    //k.StudentID = latestid;
+
+
+
+                    db.Students.Add(k);
+                    db.SaveChanges();
+
+                    ////  int lateststuID = k.StudentID;
+
+                }
+
+
             }
-            return Json(result, JsonRequestBehavior.AllowGet);
+            catch (DbEntityValidationException e)
+            {
+
+
+                Console.WriteLine(e.ToString());
+
+            }
+
+
+            return View(obj);
+
+        }
+        public ActionResult EmpRegister()
+        {
+
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EmpRegister(Employee obj)
+        {
+            try
+            {
+                HMSEntities db = new HMSEntities();
+
+                Employee k = new Employee();
+                Login site = new Login();
+                site.Email = obj.Name;
+                site.Password = obj.password;
+                site.Type = "emp";
+                // using (HMSEntities k =new HMSEntities())
+                if (db.Logins.Any(x => x.Email == obj.Name))
+                {  //{
+                    ViewBag.Message = "EEEE";
+                    //    ViewBag.Message = "UserName or password is wrong";
+                    //   // return View("StuRegister",)
+                    return RedirectToAction("EmpRegister");
+                    //    ViewBag.ErrorMessage = "Email not found or matched";
+                    //return View();
+                }
+                else
+                {
+                    db.Logins.Add(site);
+                    db.SaveChanges();
+
+                    k.Name = obj.Name;
+                    k.password = obj.password;
+                    k.DOB = obj.DOB;
+
+
+
+
+                    int latestid = site.LoginID;
+
+                    k.LoginID = site.LoginID;
+
+
+                    k.Cell = obj.Cell;
+                    k.Address = obj.Address;
+                    k.CNIC = obj.CNIC;
+
+                    k.Designation = obj.Designation;
+
+
+                    //  k.Login.LoginID = obj.LoginID;
+                    //k.StudentID = latestid;
+
+
+
+                    db.Employees.Add(k);
+                    db.SaveChanges();
+
+                    ////  int lateststuID = k.StudentID;
+
+                }
+
+
+            }
+            catch (DbEntityValidationException e)
+            {
+
+
+                Console.WriteLine(e.ToString());
+
+            }
+
+
+            return View(obj);
         }
 
-        public ActionResult AfterLogin()
+//[HttpGet]
+//        public ActionResult Login()
+//        {
+
+
+//            return View();
+//        }
+//        [HttpPost]
+//        public ActionResult Login(Login obj)
+//        {
+//            HMSEntities db = new HMSEntities();
+//         //    var usr=db.Logins.Single<u =>u.Email==obj.Email && u.password==obj.Password);
+//            //  var v =null;
+//            var v = db.Logins.Where(x => x.Email == obj.Email && x.Password == obj.Password).FirstOrDefault();
+
+
+//            if (v != null)
+//            {
+//                var k = db.Students.Where(d => d.Login.Type == v.Type).FirstOrDefault();
+//                if (k != null)
+//                // if (!k.va) { }
+//                {
+//                    //return RedirectToAction("StuRegister");
+//                    return RedirectToAction("ViewDetails", "Student");
+//                }
+//                else
+//                { return RedirectToAction("ViewDetails", "Employee"); }
+//            }
+//            else
+//            {
+//                return RedirectToAction("Index", "Home");
+
+//            }
+
+//            return View();
+
+        //}
+        public ActionResult Login()
         {
-            if (Session["UserID"] != null)
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(Login l)
+        {using (HMSEntities db = new HMSEntities())
             {
+                var v = db.Logins.Where(x => x.Email == l.Email && x.Password == l.Password).FirstOrDefault();
+                if(v!=null)
+                {
+                    var k = db.Students.Where(d => d.Login.Type == v.Type).FirstOrDefault();
+                    if(k!=null)
+                    {
+                        return RedirectToAction("ViewDetails","Student");
+                    }
+                    else
+                    {
+                        return RedirectToAction("ViewDetails","Employee");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "invalid user");
+                }
+            }
                 return View();
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
         }
-
-        public ActionResult Logout()
-        {
-            Session.Clear();
-            Session.Abandon();
-            return RedirectToAction("Index");
-        }
-	}
+    }
 }

@@ -13,5 +13,7 @@ namespace LoginRegistrationDemo.Models
             : base("DefaultConnection")
         {
         }
+
+        public System.Data.Entity.DbSet<LoginRegistrationDemo.Models.ApplicationUser> IdentityUsers { get; set; }
     }
 }

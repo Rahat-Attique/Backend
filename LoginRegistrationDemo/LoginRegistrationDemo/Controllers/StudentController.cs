@@ -10,10 +10,10 @@ namespace LoginRegistrationDemo.Controllers
 {
     public class StudentController : Controller
     {
-        // GET: Student
-        HostelProjectEntities db = new HostelProjectEntities();
-        public List<User> users { get; set; }
-        public List<ApprovedStudent> approvedStudents { get; set; }
+        //// GET: Student
+        //HostelProjectEntities db = new HostelProjectEntities();
+        //public List<User> users { get; set; }
+        //public List<ApprovedStudent> approvedStudents { get; set; }
         // [HttpPost]
         public ActionResult Index()
         {
@@ -23,32 +23,32 @@ namespace LoginRegistrationDemo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddComplains(AddComplains cc)
-        {
-            using (HostelProjectEntities db = new HostelProjectEntities())
-            {
-                AddComplains comp = new AddComplains();
-                comp.Subject = cc.Subject;
-                comp.RoomNo = cc.RoomNo;
-                comp.IssueType = cc.IssueType;
-                comp.Priority = cc.Priority;
-                comp.DueDate = cc.DueDate;
-                comp.AssignComplainTo = cc.AssignComplainTo;
-                comp.DueDate = cc.DueDate;
-                comp.ComplainDetails = cc.ComplainDetails;
-                //db.AddComplains.Add(comp);
-                db.SaveChanges();
-                ViewBag.SuccessMessage = "Successfully Added";
+        //public ActionResult AddComplains(AddComplains cc)
+        //{
+        //    using (HostelProjectEntities db = new HostelProjectEntities())
+        //    {
+        //        AddComplains comp = new AddComplains();
+        //        comp.Subject = cc.Subject;
+        //        comp.RoomNo = cc.RoomNo;
+        //        comp.IssueType = cc.IssueType;
+        //        comp.Priority = cc.Priority;
+        //        comp.DueDate = cc.DueDate;
+        //        comp.AssignComplainTo = cc.AssignComplainTo;
+        //        comp.DueDate = cc.DueDate;
+        //        comp.ComplainDetails = cc.ComplainDetails;
+        //        //db.AddComplains.Add(comp);
+        //        db.SaveChanges();
+        //        ViewBag.SuccessMessage = "Successfully Added";
 
 
 
-            }
-            ViewBag.SuccessMessage = "not added";
-            ModelState.Clear();
-            return View("Added", new AddComplains());
+        //    }
+        //    ViewBag.SuccessMessage = "not added";
+        //    ModelState.Clear();
+        //    return View("Added", new AddComplains());
 
 
-        }
+        //}
 
         public ActionResult ViewDetails()
         {
@@ -59,15 +59,15 @@ namespace LoginRegistrationDemo.Controllers
         {
             return View();
         }
-        public ActionResult ViewDetails(int ID)
-        {
+        //public ActionResult ViewDetails(int ID)
+        //{
 
-            var temps = db.Users.Where(t => t.ID == ID).ToList();
-          //  ApprovedStudent k = new ApprovedStudent();
-            User obj = db.Users.Find(ID);
+        //    var temps = db.Users.Where(t => t.ID == ID).ToList();
+        //  //  ApprovedStudent k = new ApprovedStudent();
+        //    User obj = db.Users.Find(ID);
 
-            return View();
-        }
+        //    return View();
+        //}
     }
 
     public class AddComplains

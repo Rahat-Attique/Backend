@@ -13,10 +13,10 @@ namespace LoginRegistrationDemo.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HostelProjectEntities : DbContext
+    public partial class HMSEntities : DbContext
     {
-        public HostelProjectEntities()
-            : base("name=HostelProjectEntities")
+        public HMSEntities()
+            : base("name=HMSEntities")
         {
         }
     
@@ -25,7 +25,15 @@ namespace LoginRegistrationDemo.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<ApprovedStudent> ApprovedStudents { get; set; }
+        public virtual DbSet<Allotment> Allotments { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Complain> Complains { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Hostel> Hostels { get; set; }
+        public virtual DbSet<Login> Logins { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
     }
 }

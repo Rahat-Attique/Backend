@@ -4,126 +4,766 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HostelProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="ApprovedStudents">
+      <Schema Namespace="HMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Allotment">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="AllotmentID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
-          <Property Name="phoneNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="CNIC" Type="nvarchar" MaxLength="50" />
-          <Property Name="Department" Type="nvarchar" MaxLength="50" />
-          <Property Name="Degree" Type="nvarchar" MaxLength="50" />
-          <Property Name="RegistrationNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="HostelName" Type="nvarchar" MaxLength="50" />
-          <Property Name="RoomNumber" Type="nvarchar(max)" />
-          <Property Name="IsValid" Type="bit" />
+          <Property Name="AllotmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="RoomID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="DateOfAllotment" Type="date" />
+          <Property Name="DateOfRele" Type="date" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Comments">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="CommentID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="RegistrationNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="CNIC" Type="nvarchar" MaxLength="50" />
-          <Property Name="HostelName" Type="nvarchar" MaxLength="50" />
-          <Property Name="RoomNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="Degree" Type="nvarchar" MaxLength="50" />
-          <Property Name="Department" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsValid" Type="bit" />
+          <Property Name="CommentID" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Date" Type="date" />
         </EntityType>
-        <EntityContainer Name="HostelProjectModelStoreContainer">
-          <EntitySet Name="ApprovedStudents" EntityType="Self.ApprovedStudents" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+        <EntityType Name="Complains">
+          <Key>
+            <PropertyRef Name="ComplainID" />
+          </Key>
+          <Property Name="ComplainID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="date" Nullable="false" />
+          <Property Name="LastUpdate" Type="date" />
+          <Property Name="Subject" Type="nvarchar(max)" />
+          <Property Name="Type" Type="nvarchar(max)" />
+          <Property Name="Priority" Type="nvarchar(max)" />
+          <Property Name="Details" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Designation" Type="nvarchar(max)" />
+          <Property Name="CNIC" Type="nvarchar(max)" />
+          <Property Name="Cell" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="LoginID" Type="int" />
+          <Property Name="DOB" Type="date" />
+        </EntityType>
+        <EntityType Name="Hostel">
+          <Key>
+            <PropertyRef Name="HostelID" />
+          </Key>
+          <Property Name="HostelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hostelName" Type="nvarchar(max)" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Type" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="RoomID" />
+          </Key>
+          <Property Name="RoomID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoomNo" Type="nvarchar(max)" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="Capacity" Type="int" />
+          <Property Name="HostelID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="RegistrationNumber" Type="nvarchar(max)" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="Session" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="LoginID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Allotment_Rooms">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="1" />
+          <End Role="Allotment" Type="Self.Allotment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="Allotment">
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Allotment_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Allotment" Type="Self.Allotment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Allotment">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complains_Complains">
+          <End Role="Complains" Type="Self.Complains" Multiplicity="1" />
+          <End Role="Complains1" Type="Self.Complains" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Complains">
+              <PropertyRef Name="ComplainID" />
+            </Principal>
+            <Dependent Role="Complains1">
+              <PropertyRef Name="ComplainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complains_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Complains" Type="Self.Complains" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Complains">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complains_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Complains" Type="Self.Complains" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Complains">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complains_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Complains" Type="Self.Complains" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Complains">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Login">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hostel_Hostel">
+          <End Role="Hostel" Type="Self.Hostel" Multiplicity="1" />
+          <End Role="Hostel1" Type="Self.Hostel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Hostel">
+              <PropertyRef Name="HostelID" />
+            </Principal>
+            <Dependent Role="Hostel1">
+              <PropertyRef Name="HostelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rooms_Hostel">
+          <End Role="Hostel" Type="Self.Hostel" Multiplicity="1" />
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hostel">
+              <PropertyRef Name="HostelID" />
+            </Principal>
+            <Dependent Role="Rooms">
+              <PropertyRef Name="HostelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Login">
+          <End Role="Login" Type="Self.Login" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Student1" Type="Self.Student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Student1">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HMSModelStoreContainer">
+          <EntitySet Name="Allotment" EntityType="Self.Allotment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Complains" EntityType="Self.Complains" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hostel" EntityType="Self.Hostel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Allotment_Rooms" Association="Self.FK_Allotment_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="Allotment" EntitySet="Allotment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Allotment_Student" Association="Self.FK_Allotment_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Allotment" EntitySet="Allotment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complains_Complains" Association="Self.FK_Complains_Complains">
+            <End Role="Complains" EntitySet="Complains" />
+            <End Role="Complains1" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complains_Employee" Association="Self.FK_Complains_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Complains" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complains_Status" Association="Self.FK_Complains_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Complains" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complains_Student" Association="Self.FK_Complains_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Complains" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Login" Association="Self.FK_Employee_Login">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hostel_Hostel" Association="Self.FK_Hostel_Hostel">
+            <End Role="Hostel" EntitySet="Hostel" />
+            <End Role="Hostel1" EntitySet="Hostel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rooms_Hostel" Association="Self.FK_Rooms_Hostel">
+            <End Role="Hostel" EntitySet="Hostel" />
+            <End Role="Rooms" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Department" Association="Self.FK_Student_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Login" Association="Self.FK_Student_Login">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Student" Association="Self.FK_Student_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Student1" EntitySet="Student" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="HostelProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="User">
+      <Schema Namespace="HMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Allotment">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="AllotmentID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RegistrationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CNIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HostelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RoomNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsValid" Type="Boolean" />
+          <Property Name="AllotmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="RoomID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="DateOfAllotment" Type="DateTime" Precision="0" />
+          <Property Name="DateOfRele" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_Allotment_Rooms" FromRole="Allotment" ToRole="Rooms" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Allotment_Student" FromRole="Allotment" ToRole="Student" />
         </EntityType>
-        <EntityContainer Name="HostelProjectEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="ApprovedStudents" EntityType="HostelProjectModel.ApprovedStudent" />
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" />
+          <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Complain">
+          <Key>
+            <PropertyRef Name="ComplainID" />
+          </Key>
+          <Property Name="ComplainID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="0" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Priority" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Complains1" Relationship="Self.FK_Complains_Complains" FromRole="Complains" ToRole="Complains1" />
+          <NavigationProperty Name="Complain1" Relationship="Self.FK_Complains_Complains" FromRole="Complains1" ToRole="Complains" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Complains_Employee" FromRole="Complains" ToRole="Employee" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Complains_Status" FromRole="Complains" ToRole="Status" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Complains_Student" FromRole="Complains" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Student_Department" FromRole="Department" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CNIC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cell" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LoginID" Type="Int32" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Complains" Relationship="Self.FK_Complains_Employee" FromRole="Employee" ToRole="Complains" />
+          <NavigationProperty Name="Login" Relationship="Self.FK_Employee_Login" FromRole="Employee" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="Hostel">
+          <Key>
+            <PropertyRef Name="HostelID" />
+          </Key>
+          <Property Name="HostelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hostelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hostel1" Relationship="Self.FK_Hostel_Hostel" FromRole="Hostel" ToRole="Hostel1" />
+          <NavigationProperty Name="Hostel2" Relationship="Self.FK_Hostel_Hostel" FromRole="Hostel1" ToRole="Hostel" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Rooms_Hostel" FromRole="Hostel" ToRole="Rooms" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Login" FromRole="Login" ToRole="Employee" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Student_Login" FromRole="Login" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="RoomID" />
+          </Key>
+          <Property Name="RoomID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoomNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Capacity" Type="Int32" />
+          <Property Name="HostelID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Allotments" Relationship="Self.FK_Allotment_Rooms" FromRole="Rooms" ToRole="Allotment" />
+          <NavigationProperty Name="Hostel" Relationship="Self.FK_Rooms_Hostel" FromRole="Rooms" ToRole="Hostel" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Complains" Relationship="Self.FK_Complains_Status" FromRole="Status" ToRole="Complains" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="Session" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LoginID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Allotments" Relationship="Self.FK_Allotment_Student" FromRole="Student" ToRole="Allotment" />
+          <NavigationProperty Name="Complains" Relationship="Self.FK_Complains_Student" FromRole="Student" ToRole="Complains" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Student_Department" FromRole="Student" ToRole="Department" />
+          <NavigationProperty Name="Login" Relationship="Self.FK_Student_Login" FromRole="Student" ToRole="Login" />
+          <NavigationProperty Name="Student1" Relationship="Self.FK_Student_Student" FromRole="Student" ToRole="Student1" />
+          <NavigationProperty Name="Student2" Relationship="Self.FK_Student_Student" FromRole="Student1" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Allotment_Rooms">
+          <End Role="Rooms" Type="Self.Room" Multiplicity="1" />
+          <End Role="Allotment" Type="Self.Allotment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="Allotment">
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Allotment_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Allotment" Type="Self.Allotment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Allotment">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complains_Complains">
+          <End Role="Complains" Type="Self.Complain" Multiplicity="1" />
+          <End Role="Complains1" Type="Self.Complain" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Complains">
+              <PropertyRef Name="ComplainID" />
+            </Principal>
+            <Dependent Role="Complains1">
+              <PropertyRef Name="ComplainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complains_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Complains" Type="Self.Complain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Complains">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complains_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Complains" Type="Self.Complain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Complains">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complains_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Complains" Type="Self.Complain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Complains">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Login">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hostel_Hostel">
+          <End Role="Hostel" Type="Self.Hostel" Multiplicity="1" />
+          <End Role="Hostel1" Type="Self.Hostel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Hostel">
+              <PropertyRef Name="HostelID" />
+            </Principal>
+            <Dependent Role="Hostel1">
+              <PropertyRef Name="HostelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rooms_Hostel">
+          <End Role="Hostel" Type="Self.Hostel" Multiplicity="1" />
+          <End Role="Rooms" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hostel">
+              <PropertyRef Name="HostelID" />
+            </Principal>
+            <Dependent Role="Rooms">
+              <PropertyRef Name="HostelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Login">
+          <End Role="Login" Type="Self.Login" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Student1" Type="Self.Student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Student1">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Allotments" EntityType="Self.Allotment" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Complains" EntityType="Self.Complain" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Hostels" EntityType="Self.Hostel" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK_Allotment_Rooms" Association="Self.FK_Allotment_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="Allotment" EntitySet="Allotments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Allotment_Student" Association="Self.FK_Allotment_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Allotment" EntitySet="Allotments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complains_Complains" Association="Self.FK_Complains_Complains">
+            <End Role="Complains" EntitySet="Complains" />
+            <End Role="Complains1" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complains_Employee" Association="Self.FK_Complains_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Complains" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complains_Status" Association="Self.FK_Complains_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Complains" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complains_Student" Association="Self.FK_Complains_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Complains" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Department" Association="Self.FK_Student_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Login" Association="Self.FK_Employee_Login">
+            <End Role="Login" EntitySet="Logins" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hostel_Hostel" Association="Self.FK_Hostel_Hostel">
+            <End Role="Hostel" EntitySet="Hostels" />
+            <End Role="Hostel1" EntitySet="Hostels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rooms_Hostel" Association="Self.FK_Rooms_Hostel">
+            <End Role="Hostel" EntitySet="Hostels" />
+            <End Role="Rooms" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Login" Association="Self.FK_Student_Login">
+            <End Role="Login" EntitySet="Logins" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Student" Association="Self.FK_Student_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Student1" EntitySet="Students" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="ApprovedStudent">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="phoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CNIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RegistrationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HostelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RoomNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsValid" Type="Boolean" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HostelProjectModelStoreContainer" CdmEntityContainer="HostelProjectEntities">
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="HostelProjectModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
-                <ScalarProperty Name="HostelName" ColumnName="HostelName" />
-                <ScalarProperty Name="RoomNumber" ColumnName="RoomNumber" />
-                <ScalarProperty Name="Degree" ColumnName="Degree" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+        <EntityContainerMapping StorageEntityContainer="HMSModelStoreContainer" CdmEntityContainer="HMSEntities">
+          <EntitySetMapping Name="Allotments">
+            <EntityTypeMapping TypeName="HMSModel.Allotment">
+              <MappingFragment StoreEntitySet="Allotment">
+                <ScalarProperty Name="AllotmentID" ColumnName="AllotmentID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DateOfAllotment" ColumnName="DateOfAllotment" />
+                <ScalarProperty Name="DateOfRele" ColumnName="DateOfRele" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ApprovedStudents">
-            <EntityTypeMapping TypeName="HostelProjectModel.ApprovedStudent">
-              <MappingFragment StoreEntitySet="ApprovedStudents">
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-                <ScalarProperty Name="RoomNumber" ColumnName="RoomNumber" />
-                <ScalarProperty Name="HostelName" ColumnName="HostelName" />
-                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
-                <ScalarProperty Name="Degree" ColumnName="Degree" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="HMSModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="Comment1" ColumnName="Comment" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Complains">
+            <EntityTypeMapping TypeName="HMSModel.Complain">
+              <MappingFragment StoreEntitySet="Complains">
+                <ScalarProperty Name="ComplainID" ColumnName="ComplainID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="HMSModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="HMSModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="CNIC" ColumnName="CNIC" />
-                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Cell" ColumnName="Cell" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hostels">
+            <EntityTypeMapping TypeName="HMSModel.Hostel">
+              <MappingFragment StoreEntitySet="Hostel">
+                <ScalarProperty Name="HostelID" ColumnName="HostelID" />
+                <ScalarProperty Name="hostelName" ColumnName="hostelName" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="HMSModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="HMSModel.Room">
+              <MappingFragment StoreEntitySet="Rooms">
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+                <ScalarProperty Name="RoomNo" ColumnName="RoomNo" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="HostelID" ColumnName="HostelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="HMSModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="HMSModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

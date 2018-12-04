@@ -107,7 +107,6 @@ C:\Users\rahat\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\bin\M
 C:\Users\rahat\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\rahat\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\rahat\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\rahat\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\obj\Debug\hostelMnangePro.csprojAssemblyReference.cache
 C:\Users\rahat\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\obj\Debug\hostelMnangePro.csproj.CoreCompileInputs.cache
 C:\Users\rahat\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\obj\Debug\hostelMnangePro.csproj.CopyComplete
 C:\Users\rahat\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\obj\Debug\LoginRegistrationDemo.dll
@@ -167,3 +166,4 @@ C:\Users\S.R Laptop\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\
 C:\Users\S.R Laptop\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\obj\Debug\hostelMnangePro.csprojResolveAssemblyReference.cache
 C:\Users\S.R Laptop\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\obj\Debug\LoginRegistrationDemo.dll
 C:\Users\S.R Laptop\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\obj\Debug\LoginRegistrationDemo.pdb
+C:\Users\rahat\Desktop\Backend\LoginRegistrationDemo\LoginRegistrationDemo\obj\Debug\hostelMnangePro.csprojAssemblyReference.cache
