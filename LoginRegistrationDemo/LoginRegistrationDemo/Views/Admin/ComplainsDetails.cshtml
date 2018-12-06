@@ -1,0 +1,64 @@
+﻿@model IEnumerable<LoginRegistrationDemo.Models.Complain>
+
+@{
+    ViewBag.Title = "ComplainsDetails";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>ComplainsDetails</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignTo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Priority)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssignTo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ComplainID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ComplainID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ComplainID })
+        </td>
+    </tr>
+}
+
+</table>

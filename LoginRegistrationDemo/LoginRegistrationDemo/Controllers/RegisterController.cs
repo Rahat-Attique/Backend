@@ -37,16 +37,16 @@ namespace LoginRegistrationDemo.Controllers
                 ViewBag.DepartmentList = new SelectList(list, "DepartmentID", "Name");
                 Student k = new Student();
                 Login site = new Login();
-                site.Email = obj.Name;
+                site.Email = obj.Email;
                 site.Password = obj.password;
                 site.Type = "stu";
                 // using (HMSEntities k =new HMSEntities())
-                if (db.Logins.Any(x => x.Email == obj.Name))
+                if (db.Logins.Any(x => x.Email == obj.Email))
                 {  //{
                     ViewBag.Message = "EEEE";
                     //    ViewBag.Message = "UserName or password is wrong";
                     //   // return View("StuRegister",)
-                    return RedirectToAction("StuRegister");
+                    return RedirectToAction("Login");
                     //    ViewBag.ErrorMessage = "Email not found or matched";
                     //return View();
                 }
@@ -55,9 +55,12 @@ namespace LoginRegistrationDemo.Controllers
                     db.Logins.Add(site);
                     db.SaveChanges();
 
-                    k.Name = obj.Name;
+                    k.Name = obj.Email;
                     k.password = obj.password;
+                    k.DOB = obj.DOB;
                     k.DepartmentID = obj.DepartmentID;
+                    k.PhoneNumber = obj.PhoneNumber;
+                    k.RegistrationNumber = obj.RegistrationNumber;
 
 
 
@@ -67,12 +70,12 @@ namespace LoginRegistrationDemo.Controllers
                     k.LoginID = site.LoginID;
 
 
-                    k.DepartmentID = obj.DepartmentID;
                     k.Address = obj.Address;
+                  //  k.DOB = obj.Address;
                     k.Session = obj.Session;
-                    k.DOB = obj.DOB;
-                    k.PhoneNumber = obj.PhoneNumber;
-                    k.RegistrationNumber = obj.RegistrationNumber;
+
+                //    k.Designation = obj.Designation;
+
 
                     //  k.Login.LoginID = obj.LoginID;
                     //k.StudentID = latestid;
@@ -98,8 +101,8 @@ namespace LoginRegistrationDemo.Controllers
 
 
             return View(obj);
-
         }
+
         public ActionResult EmpRegister()
         {
 
@@ -124,7 +127,7 @@ namespace LoginRegistrationDemo.Controllers
                     ViewBag.Message = "EEEE";
                     //    ViewBag.Message = "UserName or password is wrong";
                     //   // return View("StuRegister",)
-                    return RedirectToAction("EmpRegister");
+                    return RedirectToAction("Login");
                     //    ViewBag.ErrorMessage = "Email not found or matched";
                     //return View();
                 }
@@ -178,70 +181,55 @@ namespace LoginRegistrationDemo.Controllers
             return View(obj);
         }
 
-//[HttpGet]
-//        public ActionResult Login()
-//        {
 
-
-//            return View();
-//        }
-//        [HttpPost]
-//        public ActionResult Login(Login obj)
-//        {
-//            HMSEntities db = new HMSEntities();
-//         //    var usr=db.Logins.Single<u =>u.Email==obj.Email && u.password==obj.Password);
-//            //  var v =null;
-//            var v = db.Logins.Where(x => x.Email == obj.Email && x.Password == obj.Password).FirstOrDefault();
-
-
-//            if (v != null)
-//            {
-//                var k = db.Students.Where(d => d.Login.Type == v.Type).FirstOrDefault();
-//                if (k != null)
-//                // if (!k.va) { }
-//                {
-//                    //return RedirectToAction("StuRegister");
-//                    return RedirectToAction("ViewDetails", "Student");
-//                }
-//                else
-//                { return RedirectToAction("ViewDetails", "Employee"); }
-//            }
-//            else
-//            {
-//                return RedirectToAction("Index", "Home");
-
-//            }
-
-//            return View();
-
-        //}
         public ActionResult Login()
         {
             return View();
         }
         [HttpPost]
         public ActionResult Login(Login l)
-        {using (HMSEntities db = new HMSEntities())
+
+        {
+            if (l.Email == "Admin" && l.Password == "A123")
             {
-                var v = db.Logins.Where(x => x.Email == l.Email && x.Password == l.Password).FirstOrDefault();
-                if(v!=null)
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (l.Email == "RT" && l.Password == "R123")
+            {
+                return RedirectToAction("Index", "RT");
+            }
+            else if (l.Email == "Mess" && l.Password == "M123")
+            {
+                return RedirectToAction("Index", "MessStaff");
+            }
+            else {
+                using (HMSEntities db = new HMSEntities())
                 {
-                    var k = db.Students.Where(d => d.Login.Type == v.Type).FirstOrDefault();
-                    if(k!=null)
+                    var v = db.Logins.Where(x => x.Email == l.Email && x.Password == l.Password).FirstOrDefault();
+                    if (v != null)
+
                     {
-                        return RedirectToAction("ViewDetails","Student");
+                        var k = db.Students.Where(d => d.Login.Type == v.Type).FirstOrDefault();
+                        if (k != null)
+                        {
+                            return RedirectToAction("SViewDetails", "Student");
+                        }
+                        else if (k == null)
+                        {
+                            return RedirectToAction("ViewDetails", "Employee");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "invalid user");
+                        }
                     }
-                    else
-                    {
-                        return RedirectToAction("ViewDetails","Employee");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "invalid user");
+
                 }
             }
-                return View();
+            return View();
         }
-    }
-}
+               
+            }
+               
+        }
+    

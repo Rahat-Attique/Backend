@@ -13,28 +13,38 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Assigneds">
+      <EntityTypeMapping TypeName="HMSModel.Assigned">
+        <MappingFragment StoreEntitySet="Assigned">
+          <ScalarProperty Name="AssignID" ColumnName="AssignID" />
+          <ScalarProperty Name="ComplainID" ColumnName="ComplainID" />
+          <ScalarProperty Name="AssignTo" ColumnName="AssignTo" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="HMSModel.Comment">
         <MappingFragment StoreEntitySet="Comments">
           <ScalarProperty Name="CommentID" ColumnName="CommentID" />
           <ScalarProperty Name="Comment1" ColumnName="Comment" />
           <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="CommentedBy" ColumnName="CommentedBy" />
+          <ScalarProperty Name="ComplainID" ColumnName="ComplainID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Complains">
       <EntityTypeMapping TypeName="HMSModel.Complain">
-        <MappingFragment StoreEntitySet="Complains">
+        <MappingFragment StoreEntitySet="Complain">
           <ScalarProperty Name="ComplainID" ColumnName="ComplainID" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
           <ScalarProperty Name="Subject" ColumnName="Subject" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Priority" ColumnName="Priority" />
           <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="AssignTo" ColumnName="AssignTo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -56,7 +66,6 @@
           <ScalarProperty Name="Cell" ColumnName="Cell" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="LoginID" ColumnName="LoginID" />
-          <ScalarProperty Name="DOB" ColumnName="DOB" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -95,6 +104,7 @@
         <MappingFragment StoreEntitySet="Status">
           <ScalarProperty Name="StatusID" ColumnName="StatusID" />
           <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

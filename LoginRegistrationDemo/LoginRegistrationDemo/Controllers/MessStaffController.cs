@@ -17,9 +17,16 @@ namespace LoginRegistrationDemo.Controllers
         //public List<ApprovedStudent> approvedStudents { get; set; }
 
 
-        public ActionResult Index()
+        public ActionResult MessComplainsDetails()
         {
-            return View();
+            HMSEntities db = new HMSEntities();
+            List<Complain> p = new List<Complain>();
+            Complain o = new Complain();
+            p = db.Complains.Where(x => x.AssignTo == "MessStaff").ToList();
+
+
+            return View(p);
+
         }
 
         public ActionResult Dinner()

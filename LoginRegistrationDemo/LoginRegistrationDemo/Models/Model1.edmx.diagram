@@ -4,23 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3fa0d1ce09fc45f998a27024ec9bfec7" Name="Diagram1" ZoomLevel="92">
-        <EntityTypeShape EntityType="HMSModel.Allotment" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.Comment" Width="1.5" PointX="7.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.Complain" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.Department" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.Employee" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.Hostel" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.Login" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.Room" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.Status" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.Student" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="2f39fff059ac437e9aa123d987b61aec" Name="Diagram1">
+        <EntityTypeShape EntityType="HMSModel.Allotment" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Assigned" Width="1.5" PointX="11" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Comment" Width="1.5" PointX="11" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Complain" Width="1.5" PointX="8.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Department" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Employee" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Hostel" Width="1.5" PointX="3.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Login" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Room" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Status" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Student" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
         <AssociationConnector Association="HMSModel.FK_Allotment_Rooms" ManuallyRouted="false" />
         <AssociationConnector Association="HMSModel.FK_Allotment_Student" ManuallyRouted="false" />
-        <AssociationConnector Association="HMSModel.FK_Complains_Complains" ManuallyRouted="false" />
-        <AssociationConnector Association="HMSModel.FK_Complains_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="HMSModel.FK_Complains_Status" ManuallyRouted="false" />
-        <AssociationConnector Association="HMSModel.FK_Complains_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Assigned_Complain1" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Comments_Complain" ManuallyRouted="false" />
         <AssociationConnector Association="HMSModel.FK_Student_Department" ManuallyRouted="false" />
         <AssociationConnector Association="HMSModel.FK_Employee_Login" ManuallyRouted="false" />
         <AssociationConnector Association="HMSModel.FK_Hostel_Hostel" ManuallyRouted="false" />

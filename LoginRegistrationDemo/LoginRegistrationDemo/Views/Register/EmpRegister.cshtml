@@ -1,0 +1,84 @@
+﻿@model LoginRegistrationDemo.Models.Employee
+
+@{
+    /**/
+
+    ViewBag.Title = "EmpRegister";
+    Layout = "~/Views/Shared/_Register.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <h1><b>Hostel Management System</b></h1>
+
+    <h4>Employee Registration</h4>
+    <hr />
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <center>    @Html.EditorFor(model => model.Name)</center>
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <center>   @Html.EditorFor(model => model.Designation)</center>
+            @Html.ValidationMessageFor(model => model.Designation)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CNIC, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <center>   @Html.EditorFor(model => model.CNIC)</center>
+            @Html.ValidationMessageFor(model => model.CNIC)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Cell, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <center>      @Html.EditorFor(model => model.Cell)</center>
+            @Html.ValidationMessageFor(model => model.Cell)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <center>   @Html.EditorFor(model => model.Address)</center>
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <center>    @Html.EditorFor(model => model.DOB)</center>
+            @Html.ValidationMessageFor(model => model.DOB)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <center>   @Html.EditorFor(model => model.password)</center>
+            @Html.ValidationMessageFor(model => model.password)
+        </div>
+    </div>
+
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <center> <input type="submit" value="Create" class="btn btn-default" /></center>
+        </div>
+    </div>
+
+}
+
+

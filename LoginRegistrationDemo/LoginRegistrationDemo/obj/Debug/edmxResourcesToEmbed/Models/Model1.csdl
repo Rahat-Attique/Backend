@@ -13,33 +13,41 @@
     <NavigationProperty Name="Room" Relationship="Self.FK_Allotment_Rooms" FromRole="Allotment" ToRole="Rooms" />
     <NavigationProperty Name="Student" Relationship="Self.FK_Allotment_Student" FromRole="Allotment" ToRole="Student" />
   </EntityType>
+  <EntityType Name="Assigned">
+    <Key>
+      <PropertyRef Name="AssignID" />
+    </Key>
+    <Property Name="AssignID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ComplainID" Type="Int32" Nullable="false" />
+    <Property Name="AssignTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="AssignedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Complain" Relationship="Self.FK_Assigned_Complain1" FromRole="Assigned" ToRole="Complain" />
+  </EntityType>
   <EntityType Name="Comment">
     <Key>
       <PropertyRef Name="CommentID" />
     </Key>
-    <Property Name="CommentID" Type="Int32" Nullable="false" />
+    <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="CommentedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ComplainID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Complain" Relationship="Self.FK_Comments_Complain" FromRole="Comments" ToRole="Complain" />
   </EntityType>
   <EntityType Name="Complain">
     <Key>
       <PropertyRef Name="ComplainID" />
     </Key>
-    <Property Name="ComplainID" Type="Int32" Nullable="false" />
-    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-    <Property Name="StudentID" Type="Int32" Nullable="false" />
-    <Property Name="StatusID" Type="Int32" Nullable="false" />
-    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="LastUpdate" Type="DateTime" Precision="0" />
+    <Property Name="ComplainID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Priority" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Complains1" Relationship="Self.FK_Complains_Complains" FromRole="Complains" ToRole="Complains1" />
-    <NavigationProperty Name="Complain1" Relationship="Self.FK_Complains_Complains" FromRole="Complains1" ToRole="Complains" />
-    <NavigationProperty Name="Employee" Relationship="Self.FK_Complains_Employee" FromRole="Complains" ToRole="Employee" />
-    <NavigationProperty Name="Status" Relationship="Self.FK_Complains_Status" FromRole="Complains" ToRole="Status" />
-    <NavigationProperty Name="Student" Relationship="Self.FK_Complains_Student" FromRole="Complains" ToRole="Student" />
+    <Property Name="Priority" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreationDate" Type="DateTime" Precision="0" />
+    <Property Name="AssignTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Assigneds" Relationship="Self.FK_Assigned_Complain1" FromRole="Complain" ToRole="Assigned" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Complain" FromRole="Complain" ToRole="Comments" />
   </EntityType>
   <EntityType Name="Department">
     <Key>
@@ -60,8 +68,6 @@
     <Property Name="Cell" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="LoginID" Type="Int32" />
-    <Property Name="DOB" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="Complains" Relationship="Self.FK_Complains_Employee" FromRole="Employee" ToRole="Complains" />
     <NavigationProperty Name="Login" Relationship="Self.FK_Employee_Login" FromRole="Employee" ToRole="Login" />
   </EntityType>
   <EntityType Name="Hostel">
@@ -102,9 +108,9 @@
     <Key>
       <PropertyRef Name="StatusID" />
     </Key>
-    <Property Name="StatusID" Type="Int32" Nullable="false" />
+    <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="StatusName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Complains" Relationship="Self.FK_Complains_Status" FromRole="Status" ToRole="Complains" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -121,7 +127,6 @@
     <Property Name="Status" Type="Boolean" />
     <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="Allotments" Relationship="Self.FK_Allotment_Student" FromRole="Student" ToRole="Allotment" />
-    <NavigationProperty Name="Complains" Relationship="Self.FK_Complains_Student" FromRole="Student" ToRole="Complains" />
     <NavigationProperty Name="Department" Relationship="Self.FK_Student_Department" FromRole="Student" ToRole="Department" />
     <NavigationProperty Name="Login" Relationship="Self.FK_Student_Login" FromRole="Student" ToRole="Login" />
     <NavigationProperty Name="Student1" Relationship="Self.FK_Student_Student" FromRole="Student" ToRole="Student1" />
@@ -151,51 +156,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Complains_Complains">
-    <End Role="Complains" Type="Self.Complain" Multiplicity="1" />
-    <End Role="Complains1" Type="Self.Complain" Multiplicity="0..1" />
+  <Association Name="FK_Assigned_Complain1">
+    <End Role="Complain" Type="Self.Complain" Multiplicity="1" />
+    <End Role="Assigned" Type="Self.Assigned" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Complains">
+      <Principal Role="Complain">
         <PropertyRef Name="ComplainID" />
       </Principal>
-      <Dependent Role="Complains1">
+      <Dependent Role="Assigned">
         <PropertyRef Name="ComplainID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Complains_Employee">
-    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-    <End Role="Complains" Type="Self.Complain" Multiplicity="*" />
+  <Association Name="FK_Comments_Complain">
+    <End Role="Complain" Type="Self.Complain" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employee">
-        <PropertyRef Name="EmployeeID" />
+      <Principal Role="Complain">
+        <PropertyRef Name="ComplainID" />
       </Principal>
-      <Dependent Role="Complains">
-        <PropertyRef Name="EmployeeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Complains_Status">
-    <End Role="Status" Type="Self.Status" Multiplicity="1" />
-    <End Role="Complains" Type="Self.Complain" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Status">
-        <PropertyRef Name="StatusID" />
-      </Principal>
-      <Dependent Role="Complains">
-        <PropertyRef Name="StatusID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Complains_Student">
-    <End Role="Student" Type="Self.Student" Multiplicity="1" />
-    <End Role="Complains" Type="Self.Complain" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Student">
-        <PropertyRef Name="StudentID" />
-      </Principal>
-      <Dependent Role="Complains">
-        <PropertyRef Name="StudentID" />
+      <Dependent Role="Comments">
+        <PropertyRef Name="ComplainID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -273,6 +254,7 @@
   </Association>
   <EntityContainer Name="HMSEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Allotments" EntityType="Self.Allotment" />
+    <EntitySet Name="Assigneds" EntityType="Self.Assigned" />
     <EntitySet Name="Comments" EntityType="Self.Comment" />
     <EntitySet Name="Complains" EntityType="Self.Complain" />
     <EntitySet Name="Departments" EntityType="Self.Department" />
@@ -290,21 +272,13 @@
       <End Role="Student" EntitySet="Students" />
       <End Role="Allotment" EntitySet="Allotments" />
     </AssociationSet>
-    <AssociationSet Name="FK_Complains_Complains" Association="Self.FK_Complains_Complains">
-      <End Role="Complains" EntitySet="Complains" />
-      <End Role="Complains1" EntitySet="Complains" />
+    <AssociationSet Name="FK_Assigned_Complain1" Association="Self.FK_Assigned_Complain1">
+      <End Role="Complain" EntitySet="Complains" />
+      <End Role="Assigned" EntitySet="Assigneds" />
     </AssociationSet>
-    <AssociationSet Name="FK_Complains_Employee" Association="Self.FK_Complains_Employee">
-      <End Role="Employee" EntitySet="Employees" />
-      <End Role="Complains" EntitySet="Complains" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Complains_Status" Association="Self.FK_Complains_Status">
-      <End Role="Status" EntitySet="Status" />
-      <End Role="Complains" EntitySet="Complains" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Complains_Student" Association="Self.FK_Complains_Student">
-      <End Role="Student" EntitySet="Students" />
-      <End Role="Complains" EntitySet="Complains" />
+    <AssociationSet Name="FK_Comments_Complain" Association="Self.FK_Comments_Complain">
+      <End Role="Complain" EntitySet="Complains" />
+      <End Role="Comments" EntitySet="Comments" />
     </AssociationSet>
     <AssociationSet Name="FK_Student_Department" Association="Self.FK_Student_Department">
       <End Role="Department" EntitySet="Departments" />

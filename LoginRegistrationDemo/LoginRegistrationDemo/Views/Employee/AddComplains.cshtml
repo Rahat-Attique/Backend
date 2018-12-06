@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "AddComplains";
+    Layout = "~/Views/Shared/_Employee.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Add Complain</h4>
+                        <p class="card-category">Add your any issue related to hostel here</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            @*<div class="row">
+                                <div class="col-md-5 pr-1">
+                                    <div class="form-group">
+                                        <label style="margin-left:200px;">Assigned-Employee-ID</label>
+                                        <input style="margin-left:200px;" type="text" class="form-control" placeholder="Enter Subject">
+                                    </div>
+                                </div>
+                            </div>*@
+
+                            <div class="row">
+                                <div class="col-md-5 pr-1">
+                                    <div class="form-group">
+                                        <label style="margin-left: 200px" for="inputState">Issue Type</label>
+                                        <select style="margin-left: 200px" id="inputState" class="form-control">
+                                            <option selected>Select</option>
+                                            <option>Electrical</option>
+
+                                            <option>Mechanical</option>
+                                            <option>Severage</option>
+                                            <option>any other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                         
+
+
+
+                            <div class="row">
+                                <div class="col-md-5 pr-1">
+                                    <div class="form-group">
+                                        <label style="margin-left: 200px" for="inputState">Assign To</label>
+
+                                        <select style="margin-left: 200px" id="inputState" class="form-control">
+                                            <option selected>Select</option>
+                                            <option>Admin</option>
+
+                                            <option>RT</option>
+                                            <option>MessStaff</option>
+                                           
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 pr-1">
+                                    <div class="form-group">
+                                        <label style="margin-left: 200px" for="inputState">Priority</label>
+                                        <select style="margin-left: 200px" id="inputState" class="form-control">
+                                            <option selected>Select </option>
+
+                                            <option>High</option>
+                                            <option>Medium</option>
+                                            <option>Low</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-5 pr-1">
+                                    <div class="form-group">
+                                        <label style="margin-left:200px;">Creation Date</label>
+                                        <input style="margin-left:200px;" type="date" class="form-control" placeholder="Select date">
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                       
+
+
+
+                            <div class="row">
+                                <div class="col-md-5 pr-1">
+                                    <div class="form-group">
+                                        <label style="margin-left:200px;">Subject</label>
+                                        <input style="margin-left:200px;" type="text" class="form-control" placeholder="Enter Subject">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </form>
+                    </div>  <div class="row">
+                    </div>  <div class="row">
+                        <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                                <label style="margin-left:200px;">Complain Details</label>
+                                <textarea style="margin-left: 200px" rows="3" cols="45">
+                                                    </textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                Select files: <input style="margin-right:700px;" type="file" style="margin-left: 900px" name="myFile" multiple><br><br>
+                <input type="submit">
+
+                <p>Send Your Complain</p>
+
+                <center><button type="submit" class="btn btn-info btn-fill" onclick="myFunction()">Send</button></center>
+
+                <p id="demo"></p>
+
+                <script>
+function myFunction() {
+    var txt;
+    var r = confirm("Your complain has been successfully sent");
+    if (r == true) {
+        txt = "You pressed OK!";
+    } else {
+        txt = "You pressed Cancel!";
+    }
+    document.getElementById("demo").innerHTML = txt;
+}
+                </script>
+
+

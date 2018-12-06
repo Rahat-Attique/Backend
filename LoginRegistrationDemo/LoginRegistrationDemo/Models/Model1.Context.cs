@@ -26,6 +26,7 @@ namespace LoginRegistrationDemo.Models
         }
     
         public virtual DbSet<Allotment> Allotments { get; set; }
+        public virtual DbSet<Assigned> Assigneds { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Complain> Complains { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
